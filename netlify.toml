@@ -1,0 +1,8 @@
+[build]
+  base = "frontend"
+  command = "yarn build"
+  publish = "frontend/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  YARN_VERSION = "4.0.2"
