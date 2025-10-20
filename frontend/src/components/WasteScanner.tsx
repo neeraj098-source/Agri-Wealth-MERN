@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Alert, AlertDescription } from './ui/alert';
 import { Progress } from './ui/progress';
-import { Badge } from './ui/Badge';
+import { Badge } from './ui/badge';
 import { Camera, Upload, Scan, CheckCircle, AlertCircle, Info } from 'lucide-react';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 
