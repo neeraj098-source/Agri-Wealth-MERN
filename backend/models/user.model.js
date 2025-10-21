@@ -5,5 +5,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   userType: { type: String, required: true, enum: ['farmer', 'company'] }
 }, { timestamps: true });
+
 const User = mongoose.model('User', userSchema);
 module.exports = User;
+
+// Force Railway to clear cache - 21 Oct
