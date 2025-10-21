@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
-import { Badge } from './ui/Badge';
+import Badge from './ui/badge'; // ya aisa hi kuch
 import {
   Home,
   Scan,
