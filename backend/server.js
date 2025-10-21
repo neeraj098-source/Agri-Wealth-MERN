@@ -10,9 +10,9 @@ const app = express();
 const port = process.env.PORT || 5002;
 
 // --- YAHAN BADLAAV KIYA GAYA HAI ---
-// Purani line 'app.use(cors());' ko in 4 lines se badal diya gaya hai
+
 const corsOptions = {
-  origin: 'https://agri-wealth-mern-production-4789.up.railway.app'
+  origin: 'https://agri-wealth-mern-frontend.vercel.app' 
 };
 app.use(cors(corsOptions));
 // ------------------------------------
