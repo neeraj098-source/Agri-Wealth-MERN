@@ -79,7 +79,7 @@ export function Marketplace() {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const response = await fetch('http://localhost:5002/api/listings');
+        const response = await fetch('${import.meta.env.VITE_API_URL}/api/listings');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors'); // <--- Yeh pehle se hai
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -9,17 +9,26 @@ const wasteRouter = require('./routes/waste.route.js');
 const app = express();
 const port = process.env.PORT || 5002;
 
-app.use(cors());
+// --- YAHAN BADLAAV KIYA GAYA HAI ---
+// Purani line 'app.use(cors());' ko in 4 lines se badal diya gaya hai
+const corsOptions = {
+  origin: 'https://agri-wealth-mern-production-4789.up.railway.app'
+};
+app.use(cors(corsOptions));
+// ------------------------------------
+
 app.use(express.json());
 
 app.use('/api/auth', authRouter);
-app.use('/api/listings', wasteRouter);
+app.use('/api/listings', wasteRouter); // Aapke code mein '/api/listings' tha, maine wahi rakha hai
 
 const uri = process.env.MONGO_URI;
 mongoose.connect(uri)
   .then(() => {
     console.log("✅ MongoDB database connection established successfully");
     app.listen(port, () => {
+      // Yeh console log sirf local machine par dikhega, Railway par nahi
+      // Railway par yeh "Server is running on port XXXX" apne aap dikhayega
       console.log(`Backend server is running on http://localhost:${port}`);
     });
   })
