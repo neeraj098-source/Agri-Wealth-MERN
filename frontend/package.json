@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
     "tailwind:init": "tailwindcss init -p",
-    "start": "http-server ./dist -p $PORT"
+    "start": "serve -s dist -l $PORT"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -68,8 +68,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
-    "http-server": "^14.1.1",
     "postcss": "^8.5.6",
+    "serve": "^14.2.5",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.45.0",
