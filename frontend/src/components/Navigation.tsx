@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
-import Badge from 'frontend/src/components/ui/Badge.tsx'; // ya aisa hi kuch
+import { Badge } from './ui/Badge';
 import {
   Home,
   Scan,
