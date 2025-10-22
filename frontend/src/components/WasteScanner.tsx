@@ -170,7 +170,7 @@ export function WasteScanner({ user, onScanComplete }: WasteScannerProps) {
                 <SelectTrigger>
                   <SelectValue placeholder="Select waste type" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="z-50">
                   {wasteTypes.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
