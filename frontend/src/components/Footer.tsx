@@ -139,7 +139,7 @@ export function Footer() {
               </div>
               <div className="flex items-start space-x-2 text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
-                <span>123 Green Valley, Tech Park, Bangalore, Karnataka 560001</span>
+                <span>Institute of Engineering and Technology Lucknow </span>
               </div>
             </div>
 
