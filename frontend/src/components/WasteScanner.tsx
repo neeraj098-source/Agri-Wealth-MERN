@@ -71,7 +71,7 @@ export function WasteScanner({ user, onScanComplete }: WasteScannerProps) {
     }, 200);
   };
 
-  const handleScan = async () => {
+ const handleScan = async () => {
     if (!selectedFile || !wasteType || !weight) {
       setError('Please provide all required information');
       return;
@@ -82,51 +82,66 @@ export function WasteScanner({ user, onScanComplete }: WasteScannerProps) {
       return;
     }
 
-    if (!user?.accessToken) {
-      setError('User authentication required');
-      return;
-    }
+    // User check ko optional bana sakte hain agar bina login ke dikhana hai, 
+    // but flow real dikhane ke liye ise rakh sakte hain.
+    // if (!user?.accessToken) {
+    //   setError('User authentication required');
+    //   return;
+    // }
 
     setLoading(true);
     setError('');
     setAnalysis(null);
     simulateProgress();
 
+    // FAKE FLOW START: Database call ki jagah timeout use karenge
     try {
-      // Convert file to base64 for sending to server
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const imageData = reader.result as string;
+      // 2.5 seconds ka fake delay taki scanning real lage
+      setTimeout(() => {
+        // Random Quality Score (70 se 99 ke beech)
+        const mockQualityScore = Math.floor(Math.random() * (99 - 70 + 1)) + 70;
+        
+        // Waste type ke hisab se fake price set karna
+        const basePrices: Record<string, number> = {
+          'rice_husk': 3.50,
+          'wheat_straw': 4.00,
+          'corn_stalks': 2.80,
+          'sugarcane_bagasse': 1.50,
+          'cotton_stalks': 3.20,
+          'coconut_coir': 5.00,
+          'banana_leaves': 1.20,
+          'vegetable_waste': 0.80
+        };
 
-        const response = await fetch(`https://${projectId}.supabase.co/functions/v1/make-server-210c7063/analyze-waste`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.accessToken}`
-          },
-          body: JSON.stringify({
-            wasteType,
-            imageData,
-            weight: parseFloat(weight)
-          })
-        });
+        // Quality ke base par price thoda vary karega
+        const basePrice = basePrices[wasteType] || 2.00;
+        const qualityMultiplier = mockQualityScore / 100;
+        const finalPricePerKg = parseFloat((basePrice * qualityMultiplier).toFixed(2));
+        const finalEstimatedValue = parseFloat((finalPricePerKg * parseFloat(weight)).toFixed(2));
 
-        const result = await response.json();
+        // Mock Result Object
+        const mockResult = {
+          wasteType: wasteType,
+          qualityScore: mockQualityScore,
+          pricePerKg: finalPricePerKg,
+          estimatedValue: finalEstimatedValue,
+          recommendations: [
+            "Store in a cool, dry place",
+            "Ensure proper segregation before selling",
+            `High potential for ${wasteType.replace('_', ' ')} buyers`
+          ],
+          timestamp: new Date().toISOString()
+        };
 
-        if (!response.ok) {
-          setError(result.error || 'Analysis failed');
-          return;
-        }
+        setAnalysis(mockResult);
+        onScanComplete?.(mockResult);
+        setLoading(false); // Loading stop
+        
+      }, 2500); // 2.5 seconds ka wait
 
-        setAnalysis(result.analysis);
-        onScanComplete?.(result.analysis);
-      };
-
-      reader.readAsDataURL(selectedFile);
     } catch (err) {
       setError('Analysis failed. Please try again.');
       console.error('Scan error:', err);
-    } finally {
       setLoading(false);
     }
   };
